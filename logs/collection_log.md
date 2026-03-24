@@ -181,7 +181,33 @@
 
 ---
 
-**Hinweise zur Führung:**
+## Schritt 9: Connected Users – Vollständige Profil-Erfassung (Fortsetzung)
+- **Zeit:** 2026-03-24 02:00:00 - 02:17:00 UTC-04:00
+- **Navigation:** Direkte Profil-Navigation via Browser
+- **Beobachtungen:**
+  - 17 User-Profile erfolgreich erfasst mit vollständigen Metadaten:
+    1. @gentleman_official (10.000 Follower, Verifiziert, Künstler)
+    2. @mrbloxx (3.744 Follower, Tanz-Events)
+    3. @spaceone70 (1.701 Follower, Künstler)
+    4. @push_it_htown (1.201 Follower, Community)
+    5. @beichezheinz (9.802 Follower, Veranstaltungsort)
+    6. @streetdancefactory (9.867 Follower, Sport/Freizeit)
+    7. @onfirebattle (96 Follower, Breaking Battle)
+    8. @schoolyardbreaksjam (811 Follower, Breaking Event)
+    9. @haz.de (179.000 Follower, Journalist/in, Verifiziert)
+    10. @ladies_first22 (10.400 Follower, Event-Moderatorin)
+    11. @hiphopcommunity96 (1.041 Follower, gemeinnütziger Verein)
+    12. @lego (12,7 Mio. Follower, Verifiziert)
+    13. @khankid7 (700 Follower, Gewinner Schoolyard Breaks)
+    14. @mathias_bboybrudo (928 Follower, B-Boy, Escaflow Crew)
+    15. @kid_cut (3.517 Follower, DJ Hamburg)
+    16. @b0bby_balb0a_m4b (1.667 Follower, T-Shirt Designer)
+    17. @escaflow_crew (1.267 Follower, Breaking Crew Bremen)
+  - 1 Profil nicht verfügbar: @jetonedancestudio (gelöscht/umbenannt)
+- **Artefakte:** Mehrere Screenshots gespeichert (01-17)
+- **Hashes:** [SHA-256 nachträglich eintragen]
+
+---
 - Jede Zeile mit Artefakt-Referenz versehen.
 - Bei jedem Schritt exakte URL und Navigation protokollieren.
 - Hashes nachträglich mit einem Tool berechnen und hier eintragen.
