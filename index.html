@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI-Elite Evidence Gallery | Deepfakes Documentation 2019-2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a25;
+            --bg-card: #15151f;
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --accent-tertiary: #ec4899;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: #2e2e3a;
+            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.15);
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 70%);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            padding: 24px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin-bottom: 48px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 16/10;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 48px 0;
+        }
+
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pagination-btn.active {
+            background: var(--accent-gradient);
+            border-color: transparent;
+            color: white;
+        }
+
+        .pagination-info {
+            padding: 0 16px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            z-index: 1001;
+        }
+
+        .lightbox-close:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 56px;
+            height: 56px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            z-index: 1001;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .lightbox-filename {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            max-width: 400px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 12px;
+            }
+
+            .stats-bar {
+                gap: 20px;
+            }
+
+            .stat-value {
+                font-size: 22px;
+            }
+
+            .lightbox-nav {
+                width: 44px;
+                height: 44px;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <div class="container">
+        <header>
+            <div class="badge">OSINT Evidence Collection</div>
+            <h1>KI-Elite Evidence Gallery</h1>
+            <p class="subtitle">Dokumentation früher AI-Deepfakes (2019-2025) | NWO Cybermobbing Kartell Investigation</p>
+            
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalPhotos">0</div>
+                    <div class="stat-label">Artefakte</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2019-2025</div>
+                    <div class="stat-label">Zeitraum</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalPages">0</div>
+                    <div class="stat-label">Seiten</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="gallery-grid" id="gallery"></div>
+
+        <div class="pagination" id="pagination"></div>
+
+        <footer>
+            <p>Evidence Collection gemäß AGENTS.md Protokoll | Chain-of-Custody dokumentiert</p>
+        </footer>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&#8249;</button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext">&#8250;</button>
+        <div class="lightbox-filename" id="lightboxFilename"></div>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+        </div>
+        <div class="lightbox-counter" id="lightboxCounter"></div>
+    </div>
+
+    <script>
+        const photos = [
+            { filename: "2020_ai_video-by_Tom_Rohrböck_Group.png", path: "artifacts/screenshots/2020_ai_video-by_Tom_Rohrböck_Group.png" },
+            { filename: "2020_ai_video_by_Naomi_Seibt_makers.png", path: "artifacts/screenshots/2020_ai_video_by_Naomi_Seibt_makers.png" },
+            { filename: "2021_AI_flowers-very_good_work!.png", path: "artifacts/screenshots/2021_AI_flowers-very_good_work!.png" },
+            { filename: "2022_AI_VIdeo..........png", path: "artifacts/screenshots/2022_AI_VIdeo..........png" },
+            { filename: "AI.png", path: "artifacts/screenshots/AI.png" },
+            { filename: "Account_Bio.png", path: "artifacts/screenshots/Account_Bio.png" },
+            { filename: "Account_Info.png", path: "artifacts/screenshots/Account_Info.png" },
+            { filename: "Bloxx_Deepfake.png", path: "artifacts/screenshots/Bloxx_Deepfake.png" },
+            { filename: "Bruder_von_tomatolix_Kuchen_TV_und_Marvin_Wildhage.png", path: "artifacts/screenshots/Bruder_von_tomatolix_Kuchen_TV_und_Marvin_Wildhage.png" },
+            { filename: "DEEP_FAKE_OF_JENNIFER_K.png", path: "artifacts/screenshots/DEEP_FAKE_OF_JENNIFER_K.png" },
+            { filename: "EARLY_2025_AI_Video-not_distinguishable!!!.png", path: "artifacts/screenshots/EARLY_2025_AI_Video-not_distinguishable!!!.png" },
+            { filename: "Flying_Tigers_oder_was.png", path: "artifacts/screenshots/Flying_Tigers_oder_was.png" },
+            { filename: "Fully_AI_generated_video_in_2019.png", path: "artifacts/screenshots/Fully_AI_generated_video_in_2019.png" },
+            { filename: "I_KNOW_YOU!.png", path: "artifacts/screenshots/I_KNOW_YOU!.png" },
+            { filename: "Jayden_S.png", path: "artifacts/screenshots/Jayden_S.png" },
+            { filename: "Jenquiz_Crash.png", path: "artifacts/screenshots/Jenquiz_Crash.png" },
+            { filename: "KI-Elite_is_no_joke-they_are!.png", path: "artifacts/screenshots/KI-Elite_is_no_joke-they_are!.png" },
+            { filename: "Markiert.png", path: "artifacts/screenshots/Markiert.png" },
+            { filename: "Mid_2025_AI_Video.png", path: "artifacts/screenshots/Mid_2025_AI_Video.png" },
+            { filename: "Oh_lol_Mr.Bloxx_is_here_(I_knew_before_because_I_know_all_about_this_terrorists!).png", path: "artifacts/screenshots/Oh_lol_Mr.Bloxx_is_here_(I_knew_before_because_I_know_all_about_this_terrorists!).png" },
+            { filename: "Only_small_2021_AI_error_in_video-ACAC_and_not_ACAB.png", path: "artifacts/screenshots/Only_small_2021_AI_error_in_video-ACAC_and_not_ACAB.png" },
+            { filename: "Screenshot 2026-03-23 231537.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231537.png" },
+            { filename: "Screenshot 2026-03-23 231604.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231604.png" },
+            { filename: "Screenshot 2026-03-23 231654.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231654.png" },
+            { filename: "Screenshot 2026-03-23 231711.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231711.png" },
+            { filename: "Screenshot 2026-03-23 231726.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231726.png" },
+            { filename: "Screenshot 2026-03-23 231740.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231740.png" },
+            { filename: "Screenshot 2026-03-23 231754.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231754.png" },
+            { filename: "Screenshot 2026-03-23 231811.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231811.png" },
+            { filename: "Screenshot 2026-03-23 231826.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231826.png" },
+            { filename: "Screenshot 2026-03-23 231839.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231839.png" },
+            { filename: "Screenshot 2026-03-23 231851.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231851.png" },
+            { filename: "Screenshot 2026-03-23 231910.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231910.png" },
+            { filename: "Screenshot 2026-03-23 231934.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231934.png" },
+            { filename: "Screenshot 2026-03-23 231949.png", path: "artifacts/screenshots/Screenshot 2026-03-23 231949.png" },
+            { filename: "Screenshot 2026-03-23 232007.png", path: "artifacts/screenshots/Screenshot 2026-03-23 232007.png" }
+        ];
+
+        const ITEMS_PER_PAGE = 8;
+        let currentPage = 1;
+        let currentLightboxIndex = 0;
+
+        const gallery = document.getElementById('gallery');
+        const pagination = document.getElementById('pagination');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxFilename = document.getElementById('lightboxFilename');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+
+        function init() {
+            const totalPages = Math.ceil(photos.length / ITEMS_PER_PAGE);
+            document.getElementById('totalPhotos').textContent = photos.length;
+            document.getElementById('totalPages').textContent = totalPages;
+            renderGallery();
+            renderPagination();
+        }
+
+        function renderGallery() {
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const pagePhotos = photos.slice(start, end);
+
+            gallery.innerHTML = pagePhotos.map((photo, index) => `
+                <div class="gallery-item" onclick="openLightbox(${start + index})">
+                    <img src="${photo.path}" alt="${photo.filename}" loading="lazy">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">${photo.filename}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(photos.length / ITEMS_PER_PAGE);
+            let paginationHTML = '';
+
+            paginationHTML += `
+                <button class="pagination-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                    &#8249;
+                </button>
+            `;
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    paginationHTML += `
+                        <button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">
+                            ${i}
+                        </button>
+                    `;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    paginationHTML += `<span class="pagination-info">...</span>`;
+                }
+            }
+
+            paginationHTML += `
+                <button class="pagination-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                    &#8250;
+                </button>
+            `;
+
+            pagination.innerHTML = paginationHTML;
+        }
+
+        function goToPage(page) {
+            const totalPages = Math.ceil(photos.length / ITEMS_PER_PAGE);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderGallery();
+                renderPagination();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function updateLightbox() {
+            const photo = photos[currentLightboxIndex];
+            lightboxImage.src = photo.path;
+            lightboxFilename.textContent = photo.filename;
+            lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${photos.length}`;
+        }
+
+        function navigateLightbox(direction) {
+            currentLightboxIndex += direction;
+            if (currentLightboxIndex < 0) currentLightboxIndex = photos.length - 1;
+            if (currentLightboxIndex >= photos.length) currentLightboxIndex = 0;
+            updateLightbox();
+        }
+
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+        document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));
+        document.getElementById('lightboxNext').addEventListener('click', () => navigateLightbox(1));
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+
+        init();
+    </script>
+</body>
+</html>
