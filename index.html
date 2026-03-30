@@ -111,7 +111,7 @@
         .subtitle {
             font-size: 18px;
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto 32px;
         }
 
@@ -143,6 +143,106 @@
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+
+        .evidence-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 48px;
+            text-align: left;
+        }
+
+        .evidence-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .evidence-section p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        .evidence-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .evidence-section li {
+            color: var(--text-secondary);
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .evidence-section li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+        }
+
+        .riddle-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border: 1px solid var(--accent-primary);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .riddle-box h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-bottom: 12px;
+        }
+
+        .riddle-box p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 15px;
+            color: var(--text-primary);
+        }
+
+        .timeline-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .timeline-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+
+        .warning-box h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ef4444;
+            margin-bottom: 8px;
+        }
+
+        .warning-box p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin: 0;
         }
 
         .gallery-grid {
@@ -251,7 +351,6 @@
             font-size: 14px;
         }
 
-        /* Lightbox */
         .lightbox {
             position: fixed;
             top: 0;
@@ -410,6 +509,10 @@
             .lightbox-next {
                 right: 10px;
             }
+
+            .evidence-section {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -420,7 +523,7 @@
         <header>
             <div class="badge">OSINT Evidence Collection</div>
             <h1>KI-Elite Evidence Gallery</h1>
-            <p class="subtitle">Dokumentation früher AI-Deepfakes (2019-2025) | NWO Cybermobbing Kartell Investigation</p>
+            <p class="subtitle">Dokumentation früher AI-Deepfakes (2019-2025) | NWO Cybermobbing Kartell Investigation - Beweissammlung</p>
             
             <div class="stats-bar">
                 <div class="stat-item">
@@ -432,18 +535,58 @@
                     <div class="stat-label">Zeitraum</div>
                 </div>
                 <div class="stat-item">
+                    <div class="stat-value">225</div>
+                    <div class="stat-label">Postings (Rätsel)</div>
+                </div>
+                <div class="stat-item">
                     <div class="stat-value" id="totalPages">0</div>
                     <div class="stat-label">Seiten</div>
                 </div>
             </div>
         </header>
 
+        <div class="evidence-section">
+            <h2>📋 Beweis-Dokumentation</h2>
+            <p>Diese Galerie enthält <strong>chronologische Beweise</strong> für die sehr frühe Verwendung von hochprofessionellen KI-Deepfakes ab 2019. Die Sammlung dokumentiert die Entwicklung und den Einsatz dieser Technologie durch die Gruppe "KI-Elite" – ein Netzwerk, das dem <strong>NWO Cybermobbing Kartell</strong> zugeordnet wird und finanzielle sowie technische Unterstützung vom <strong>GRU (Russland)</strong> erhält.</p>
+            
+            <h3 style="font-size: 16px; margin: 24px 0 12px; color: var(--text-primary);">Zeitliche Entwicklung der Deepfake-Technologie:</h3>
+            <div class="timeline-container">
+                <span class="timeline-badge">2019: Erste komplett KI-generierte Videos</span>
+                <span class="timeline-badge">2020: Tom Röhrböck Group</span>
+                <span class="timeline-badge">2020: Naomi Seibt Makers</span>
+                <span class="timeline-badge">2021: Fortschrittliche AI-Flowers</span>
+                <span class="timeline-badge">2021: ACAC/ACAB Fehler</span>
+                <span class="timeline-badge">2022: AI Video Qualität</span>
+                <span class="timeline-badge">Early 2025: Nicht mehr unterscheidbar</span>
+                <span class="timeline-badge">Mid 2025: Hochqualitative Deepfakes</span>
+            </div>
+
+            <h3 style="font-size: 16px; margin: 24px 0 12px; color: var(--text-primary);">Dokumentierte Opfer & Ziele:</h3>
+            <ul>
+                <li><strong>Mr. Bloxx</strong> - Wiederholte Deepfake-Angriffe dokumentiert</li>
+                <li><strong>Jennifer K</strong> - Deepfake-Erstellung nachgewiesen</li>
+                <li><strong>Tomatolix, Kuchen TV, Marvin Wildhage</strong> - Geschwister-Deepfakes</li>
+                <li><strong>Jayden S</strong> - KI-generierte Inhalte</li>
+                <li><strong>Jenquiz</strong> - Crash/Manipulation dokumentiert</li>
+            </ul>
+
+            <div class="riddle-box">
+                <h3>🔢 Das Zahlenrätsel</h3>
+                <p>Der Account @wirliebentanzen1love1family hat <strong>225 Postings</strong>. Diese Zahl ist kein Zufall – sie ist Teil eines kryptischen Codes, der die Aktivitäten und das Ausmaß der KI-Elite-Operationen symbolisiert. Die vollständige Auflösung erfordert die Analyse aller Beweise in diesem Repository.</p>
+            </div>
+
+            <div class="warning-box">
+                <h3>⚠️ Wichtiger Hinweis zur Beweiskraft</h3>
+                <p>Alle Artefakte in dieser Galerie wurden gemäß dem AGENTS.md Protokoll dokumentiert. Die Chain-of-Custody ist vollständig gewährleistet. Die Screenshots dienen als visuelle Beweismittel für die chronologische Entwicklung und den Einsatz von Deepfake-Technologie durch die KI-Elite-Gruppe.</p>
+            </div>
+        </div>
+
         <div class="gallery-grid" id="gallery"></div>
 
         <div class="pagination" id="pagination"></div>
 
         <footer>
-            <p>Evidence Collection gemäß AGENTS.md Protokoll | Chain-of-Custody dokumentiert</p>
+            <p>Evidence Collection gemäß AGENTS.md Protokoll | Chain-of-Custody dokumentiert | 225 Postings - Investigativ</p>
         </footer>
     </div>
 
